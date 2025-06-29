@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Data Science Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Floating Animation */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 6s;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 10%;
+            animation-duration: 8s;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 6rem;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: #f0f0f0;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #764ba2;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Harshita Pande</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Harshita Pande</h1>
+            <p class="subtitle">Data Science Aspirant | AI & ML Enthusiast | 4th Rank at IIT Roorkee</p>
+            <a href="#projects" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Passionate about turning data into insights</p>
+            <div class="about-content">
+                <div class="profile-image">
+                    👨‍💻
+                </div>
+                <div class="about-text">
+                    <p>I'm an aspiring Data Scientist with a strong foundation in machine learning, deep learning, and data analysis. Currently pursuing B.Tech in Artificial Intelligence and Data Science at Chouksey Engineering College with a CGPA of 8.4. I'm passionate about leveraging advanced algorithms and models to extract valuable insights from complex datasets.</p>
+                    <br>
+                    <p>I have hands-on experience in building predictive models, working with real-time data, and applying cutting-edge AI techniques to solve challenging problems. My achievement of securing 4th place in IIT Roorkee's national data analytics competition demonstrates my analytical capabilities and problem-solving skills.</p>
+                    <br>
+                    <p>I specialize in developing multimodal AI solutions, data visualization dashboards, and computer vision applications. I'm seeking opportunities to apply my skills in machine learning, data processing, and model development to contribute to innovative projects and impactful solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Academic background and achievements</p>
+            <div class="about-content">
+                <div class="education-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
+                    <h3 style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;">Bachelor of Technology - Artificial Intelligence and Data Science</h3>
+                    <p style="color: #333; font-weight: 600; margin-bottom: 5px;">Chouksey Engineering College</p>
+                    <p style="color: #666; margin-bottom: 10px;">2023-2027 | Current CGPA: 8.4</p>
+                </div>
+                <div class="education-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;">Matriculation - PCM</h3>
+                    <p style="color: #333; font-weight: 600; margin-bottom: 5px;">M.G.M Higher Secondary School</p>
+                    <p style="color: #666; margin-bottom: 10px;">2021-2022 | Percentage: 91%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <p class="section-subtitle">Tools and technologies I work with</p>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Machine Learning & AI</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Linear Regression</span>
+                        <span class="skill-tag">Logistic Regression</span>
+                        <span class="skill-tag">K-Means</span>
+                        <span class="skill-tag">DBSCAN</span>
+                        <span class="skill-tag">Decision Trees</span>
+                        <span class="skill-tag">Random Forest</span>
+                        <span class="skill-tag">SVM</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Analysis & Visualization</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Excel</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Technologies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jupyter Notebook</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">Google Colab</span>
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Gradio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Explore my work across AI, Data Analysis, and Computer Vision</p>
+            
+            <!-- AI Projects -->
+            <div style="margin-bottom: 60px;">
+                <h3 style="text-align: center; font-size: 2rem; color: #667eea; margin-bottom: 30px;">🤖 AI Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">🤖</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Stock Market Bot</h3>
+                            <p class="project-description">Advanced AI-powered trading bot that analyzes market trends, predicts stock movements, and provides intelligent trading recommendations using machine learning algorithms and real-time market data.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">API Integration</span>
+                                <span class="tech-tag">Data Analysis</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/stock_market_bot" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">🩺</div>
+                        <div class="project-content">
+                            <h3 class="project-title">AI Medical Bot - Multimodal Virtual Healthcare Assistant</h3>
+                            <p class="project-description">Developed a multimodal AI-powered virtual doctor integrating speech-to-text, image analysis, and text-to-speech functionalities using Whisper model, Groq API, and ElevenLabs with an intuitive Gradio interface.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Whisper</span>
+                                <span class="tech-tag">Groq API</span>
+                                <span class="tech-tag">ElevenLabs</span>
+                                <span class="tech-tag">Gradio</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/AI_MEDICAL_BOT" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Analysis Projects -->
+            <div style="margin-bottom: 60px;">
+                <h3 style="text-align: center; font-size: 2rem; color: #e74c3c; margin-bottom: 30px;">📊 Data Analysis Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">🏨</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Revenue Analysis - Hospitality Domain</h3>
+                            <p class="project-description">Developed an interactive Power BI dashboard to analyze hotel booking trends, revenue patterns, and occupancy rates. Utilized DAX and Power Query to calculate key hospitality metrics like RevPAR, ADR, and occupancy percentage.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">DAX</span>
+                                <span class="tech-tag">Power Query</span>
+                                <span class="tech-tag">Excel</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/Hospitality_domain_Analysis" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Live Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">🛒</div>
+                        <div class="project-content">
+                            <h3 class="project-title">ShopEasy Case Study</h3>
+                            <p class="project-description">Comprehensive data analysis project focusing on e-commerce customer behavior, sales trends, and business intelligence. Implemented advanced analytics to optimize business strategies and improve customer experience.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Pandas</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">Data Visualization</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/ShopEasy_CaseStudy" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Report</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">🏆</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Zepto Case Study - IIT Roorkee Analytics Competition</h3>
+                            <p class="project-description">Analyzed customer behavior and built recommendation systems to improve user engagement. Optimized inventory management and applied clustering analysis for delivery efficiency. Secured 4th place in national competition.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Scikit-learn</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">Streamlit</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/Zepto_Case_Study" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Competition Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Computer Vision Projects -->
+            <div>
+                <h3 style="text-align: center; font-size: 2rem; color: #9b59b6; margin-bottom: 30px;">👁️ Computer Vision Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">⚽</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Sports Video Analysis</h3>
+                            <p class="project-description">Advanced computer vision project for analyzing sports videos, tracking player movements, and extracting meaningful insights from game footage using deep learning and image processing techniques.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OpenCV</span>
+                                <span class="tech-tag">Deep Learning</span>
+                                <span class="tech-tag">Video Processing</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/Sports_Video_Analysis" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">🚗</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Car Number Plate Detection</h3>
+                            <p class="project-description">Advanced computer vision project for automatic license plate recognition using machine learning algorithms. Implements image preprocessing, character segmentation, and OCR techniques for accurate plate detection.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OpenCV</span>
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">OCR</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/CarNumberPlate_Detection" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Report</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">👁️</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Eye Controlled Mouse Cursor</h3>
+                            <p class="project-description">Innovative computer vision project that enables hands-free computer interaction through eye movement tracking. Uses advanced image processing and machine learning algorithms for precise cursor control.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OpenCV</span>
+                                <span class="tech-tag">Computer Vision</span>
+                                <span class="tech-tag">Machine Learning</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ER-Harshita-15/Eye_controlled_MouseCursor" class="project-link">View Code</a>
+                                <a href="#" class="project-link">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p class="section-subtitle">I'm always open to discussing data science opportunities, collaborations, or just having a chat about the latest trends in AI and machine learning.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"></div>
+                        <span>2004pandeharshita@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"></div>
+                        <span>+91-9301864755</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"></div>
+                        <a href="https://www.linkedin.com/in/harshita-pande-049538253/" target="_blank" style="color: inherit; text-decoration: none;">LinkedIn Profile</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"></div>
+                        <a href="https://github.com/ER-Harshita-15" target="_blank" style="color: inherit; text-decoration: none;">GitHub Profile</a>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Harshita Pande. All rights reserved. Built with passion for data science.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all project cards and skill categories
+        document.querySelectorAll('.project-card, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
